@@ -24,15 +24,43 @@ console.log(document.documentElement.clientWidth);
 console.log(document.documentElement.clientHeight);
 canvas.width = document.documentElement.clientWidth;
 canvas.height = document.documentElement.clientHeight;
+var ctx = canvas.getContext('2d');
+ctx.fillStyle = "rgb(0,0,0)";
+var isSupportTouchEvent = ('ontouchstart' in document.documentElement);
 
-if (canvas.getContext) {
-  var ctx = canvas.getContext('2d');
-  ctx.fillStyle = "rgb(200,0,0)";
+if (isSupportTouchEvent) {
+  console.log('支持触摸事件');
 
-  canvas.onmousemove = function (e) {
+  canvas.ontouchmove = function (e) {
+    console.log(e);
     var x = e.clientX;
     var y = e.clientY;
-    ctx.fillRect(x - 3, y - 3, 6, 6);
+    ctx.beginPath();
+    ctx.arc(x, y, 6, 0, 2 * Math.PI);
+    ctx.stroke();
+    ctx.fill();
+  };
+} else {
+  var isPatting = false;
+
+  canvas.onmousedown = function () {
+    isPatting = true;
+  }; // 浏览器将事件相关信息包装成e作为参数
+
+
+  canvas.onmousemove = function (e) {
+    if (isPatting) {
+      var x = e.clientX;
+      var y = e.clientY;
+      ctx.beginPath();
+      ctx.arc(x, y, 6, 0, 2 * Math.PI);
+      ctx.stroke();
+      ctx.fill();
+    }
+  };
+
+  canvas.onmouseup = function () {
+    isPatting = false;
   };
 }</script>
     </div>
