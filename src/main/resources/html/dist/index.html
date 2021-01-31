@@ -11,28 +11,30 @@
         @import '../css/style.css';
     </style> -->
     <script type="text/javascript" src="/server.1e22ffd0.js">
-    
+
     </script>
 <script src="/style.e308ff8e.js"></script></head>
 
 
 <body>
     <div>
-        <div id="canvas"></div>
-        <script>canvas.onclick = function (e) {
-  console.log(e.clientX);
-  console.log(e.clientY);
-  var newDiv = document.createElement('div');
-  newDiv.style.position = 'absolute';
-  newDiv.style.left = e.clientX + 'px';
-  newDiv.style.top = e.clientY + 'px';
-  newDiv.style.width = '6px';
-  newDiv.style.height = '6px';
-  newDiv.style.borderRadius = '50%';
-  newDiv.style.backgroundColor = 'black';
-  canvas.appendChild(newDiv);
-};</script>
-        <canvas id="canvas1"></canvas>
+        <canvas id="canvas" width="0" height="0"></canvas>
+        <script>var canvas = document.getElementById('canvas');
+console.log(document.documentElement.clientWidth);
+console.log(document.documentElement.clientHeight);
+canvas.width = document.documentElement.clientWidth;
+canvas.height = document.documentElement.clientHeight;
+
+if (canvas.getContext) {
+  var ctx = canvas.getContext('2d');
+  ctx.fillStyle = "rgb(200,0,0)";
+
+  canvas.onmousemove = function (e) {
+    var x = e.clientX;
+    var y = e.clientY;
+    ctx.fillRect(x - 3, y - 3, 6, 6);
+  };
+}</script>
     </div>
 </body>
 
