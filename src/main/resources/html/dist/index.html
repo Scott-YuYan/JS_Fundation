@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>画板</title>
+    <link rel="stylesheet" href="/style.e308ff8e.css">
+    <!-- <style type="text/css">
+        @import '../css/style.css';
+    </style> -->
+    <script type="text/javascript" src="/server.1e22ffd0.js">
+    
+    </script>
+<script src="/style.e308ff8e.js"></script></head>
+
+
+<body>
+    <div>
+        <div id="canvas"></div>
+        <script>canvas.onclick = function (e) {
+  console.log(e.clientX);
+  console.log(e.clientY);
+  var newDiv = document.createElement('div');
+  newDiv.style.position = 'absolute';
+  newDiv.style.left = e.clientX + 'px';
+  newDiv.style.top = e.clientY + 'px';
+  newDiv.style.width = '6px';
+  newDiv.style.height = '6px';
+  newDiv.style.borderRadius = '50%';
+  newDiv.style.backgroundColor = 'black';
+  canvas.appendChild(newDiv);
+};</script>
+        <canvas id="canvas1"></canvas>
+    </div>
+</body>
+
+</html>
