@@ -36,8 +36,8 @@
                 console.log('支持触摸事件');
                 canvas.ontouchmove = (e) => {
                     console.log(e);
-                    let x = e.clientX;
-                    let y = e.clientY;
+                    let x = e.touches[0].clientX;
+                    let y = e.touches[0].clientY;
                     ctx.beginPath();
                     ctx.arc(x, y, 6, 0, 2 * Math.PI);
                     ctx.stroke();
