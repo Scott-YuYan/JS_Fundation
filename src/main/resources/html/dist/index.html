@@ -27,24 +27,29 @@ canvas.height = document.documentElement.clientHeight;
 var ctx = canvas.getContext('2d');
 ctx.fillStyle = "rgb(0,0,0)";
 var isSupportTouchEvent = ('ontouchstart' in document.documentElement);
+var preDot;
 
 if (isSupportTouchEvent) {
   console.log('支持触摸事件');
+
+  canvas.ontouchstart = function (e) {
+    console.log('1');
+    preDot = [e.touches[0].clientX, e.touches[0].clientY];
+  };
 
   canvas.ontouchmove = function (e) {
     console.log(e);
     var x = e.touches[0].clientX;
     var y = e.touches[0].clientY;
-    ctx.beginPath();
-    ctx.arc(x, y, 6, 0, 2 * Math.PI);
-    ctx.stroke();
-    ctx.fill();
+    drawLine(preDot[0], preDot[1], x, y);
+    preDot = [x, y];
   };
 } else {
   var isPatting = false;
 
-  canvas.onmousedown = function () {
+  canvas.onmousedown = function (e) {
     isPatting = true;
+    preDot = [e.clientX, e.clientY];
   }; // 浏览器将事件相关信息包装成e作为参数
 
 
@@ -52,16 +57,24 @@ if (isSupportTouchEvent) {
     if (isPatting) {
       var x = e.clientX;
       var y = e.clientY;
-      ctx.beginPath();
-      ctx.arc(x, y, 6, 0, 2 * Math.PI);
-      ctx.stroke();
-      ctx.fill();
+      drawLine(preDot[0], preDot[1], x, y);
+      preDot = [x, y];
     }
   };
 
   canvas.onmouseup = function () {
     isPatting = false;
   };
+} //划线函数
+
+
+function drawLine(x, y, x1, x2) {
+  ctx.beginPath();
+  ctx.lineWidth = 5;
+  ctx.lineCap = "round";
+  ctx.moveTo(x, y);
+  ctx.lineTo(x1, x2);
+  ctx.stroke();
 }</script>
     </div>
 </body>
